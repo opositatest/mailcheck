@@ -5,33 +5,54 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm test          # lint (jshint) + run Jasmine tests
-npm run uglify    # minify src/mailcheck.js → src/mailcheck.min.js
-grunt             # lint + test + minify (also runs as pre-commit hook)
+npm run build     # lint + test + bundle (also runs as pre-commit hook)
+npm test          # run Jasmine tests only
+npm run lint      # Biome check (lint + format check)
+npm run lint:fix  # Biome check --write (auto-fix)
+npm run bundle    # rollup only — generates dist/
 ```
 
-To run tests without minifying: `grunt test`
+After any change to `src/mailcheck.js`, run `npm run build` to regenerate `dist/`. Commit `dist/` alongside source changes.
 
-After any change to `src/mailcheck.js`, run `grunt` (or `npm run uglify`) to regenerate `src/mailcheck.min.js` — both files are committed together.
+## Toolchain
+
+- **Node ≥ 22** required
+- **Biome 2** (`biome.json`) — linter + formatter
+- **Jasmine 5** (`spec/support/jasmine.json`, `jsLoader: "import"`) — ESM test runner
+- **Rollup 4** (`rollup.config.js`) — generates ESM, CJS and browser IIFE builds
+- **Husky 9** (`.husky/pre-commit`) — runs `npm run build` on commit
 
 ## Architecture
 
-The entire library is a single file: `src/mailcheck.js`. There is no build step beyond minification.
+The library is a single source file with no runtime dependencies.
 
-**`Mailcheck` object** exposes these public methods and properties:
+### Source files (`src/`)
+
+| File | Purpose |
+|---|---|
+| `mailcheck.js` | Core library — pure ESM, no jQuery |
+| `mailcheck.jquery.js` | Optional jQuery plugin — imports core, auto-registers `$.fn.mailcheck` if `window.jQuery` exists |
+| `mailcheck.d.ts` | TypeScript type definitions |
+
+### Build outputs (`dist/`)
+
+| File | Format | Use case |
+|---|---|---|
+| `mailcheck.mjs` | ESM | `import Mailcheck from 'mailcheck'` |
+| `mailcheck.cjs` | CJS | `require('mailcheck')` |
+| `mailcheck.browser.min.js` | IIFE minified | `<script>` tag, includes jQuery plugin |
+
+### Public API (`Mailcheck` object)
 
 - `Mailcheck.run(opts)` — entry point; merges defaults, calls `suggest`, invokes callbacks
-- `Mailcheck.suggest(email, domains, slds, tlds, distanceFn)` — core logic; splits email, finds closest domain match
+- `Mailcheck.suggest(email, domains, slds, tlds, distanceFn)` — core logic; splits email, finds closest domain
 - `Mailcheck.findClosestDomain(domain, domains, distanceFn, threshold)` — iterates candidates using `sift4Distance`
 - `Mailcheck.splitEmail(email)` → `{ address, domain, secondLevelDomain, topLevelDomain }`
-- `Mailcheck.sift4Distance(s1, s2)` — string similarity algorithm (sift4); lower = more similar
-- `Mailcheck.defaultDomains`, `Mailcheck.defaultSecondLevelDomains`, `Mailcheck.defaultTopLevelDomains` — extend these arrays to add domains globally
+- `Mailcheck.sift4Distance(s1, s2)` — string similarity algorithm; lower = more similar
+- `Mailcheck.defaultDomains`, `Mailcheck.defaultSecondLevelDomains`, `Mailcheck.defaultTopLevelDomains` — extend to add domains globally
 
-**Domain matching logic** (`suggest`):
+### Domain matching logic (`suggest`)
+
 1. If the typed SLD+TLD both exactly match known lists → no suggestion
-2. Try matching full domain against `domains` list with threshold `domainThreshold` (2)
+2. Try matching full domain against `domains` list with `domainThreshold` (2)
 3. If no full-domain match, independently match SLD and TLD, then reconstruct suggestion
-
-**Module exports**: CommonJS (`module.exports`), AMD (`define`), and jQuery plugin (`$.fn.mailcheck`) are all defined at the bottom of the same file, guarded by environment checks.
-
-**Tests** live in `spec/mailcheckSpec.js` (Jasmine). The spec runner HTML (`spec/spec_runner.html`) can also be opened in a browser for in-browser test runs.

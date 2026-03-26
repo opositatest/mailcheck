@@ -1,3 +1,6 @@
+/*! mailcheck v1.1.2 @licence MIT */
+'use strict';
+
 const Mailcheck = {
   domainThreshold: 2,
   secondLevelThreshold: 2,
@@ -312,4 +315,4 @@ const Mailcheck = {
   },
 };
 
-export default Mailcheck;
+module.exports = Mailcheck;
