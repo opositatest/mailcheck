@@ -1,12 +1,17 @@
 mailcheck.js
 =========
 
-[![CI](https://github.com/mailcheck/mailcheck/actions/workflows/ci.yml/badge.svg)](https://github.com/mailcheck/mailcheck/actions/workflows/ci.yml)
-[![Security](https://github.com/mailcheck/mailcheck/actions/workflows/security.yml/badge.svg)](https://github.com/mailcheck/mailcheck/actions/workflows/security.yml)
-
-> This is a maintained fork of the original [mailcheck/mailcheck](https://github.com/mailcheck/mailcheck), which is no longer actively maintained.
+[![CI](https://github.com/opositatest/mailcheck/actions/workflows/ci.yml/badge.svg)](https://github.com/opositatest/mailcheck/actions/workflows/ci.yml)
+[![Security](https://github.com/opositatest/mailcheck/actions/workflows/security.yml/badge.svg)](https://github.com/opositatest/mailcheck/actions/workflows/security.yml)
+[![npm](https://img.shields.io/npm/v/@opositatest/mailcheck)](https://www.npmjs.com/package/@opositatest/mailcheck)
+[![TypeScript](https://img.shields.io/badge/TypeScript-supported-3178c6?logo=typescript&logoColor=white)](https://github.com/opositatest/mailcheck/blob/main/src/mailcheck.d.ts)
+[![ESM](https://img.shields.io/badge/ESM-native-f7df1e?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/opositatest/mailcheck/blob/main/LICENSE)
+[![Node ≥22](https://img.shields.io/badge/node-%3E%3D22-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
 
 The Javascript library and jQuery plugin that suggests a right domain when your users misspell it in an email address.
+
+> Built on the foundations of the original [mailcheck/mailcheck](https://github.com/mailcheck/mailcheck). Thank you for the great work.
 
 What does it do?
 ----------------
@@ -21,7 +26,7 @@ Installation
 ------------
 
 ```
-npm install --save mailcheck
+npm install --save @opositatest/mailcheck
 ```
 
 Usage
@@ -30,7 +35,7 @@ Usage
 #### ESM (recommended)
 
 ```js
-import Mailcheck from 'mailcheck';
+import Mailcheck from '@opositatest/mailcheck';
 
 Mailcheck.run({
   email: yourTextInput.value,
@@ -50,7 +55,7 @@ Mailcheck.run({
 #### CommonJS
 
 ```js
-const Mailcheck = require('mailcheck');
+const Mailcheck = require('@opositatest/mailcheck');
 
 Mailcheck.run({ /* same options */ });
 ```
@@ -143,7 +148,7 @@ TypeScript
 Types are included:
 
 ```ts
-import Mailcheck, { MailcheckOptions, MailcheckSuggestion } from 'mailcheck';
+import Mailcheck, { MailcheckOptions, MailcheckSuggestion } from '@opositatest/mailcheck';
 
 const opts: MailcheckOptions = {
   email: 'test@gmailc.om',
@@ -172,7 +177,7 @@ Pull requests are welcome. To get them accepted, please:
 - Add test cases to `spec/mailcheckSpec.js` for any new behaviour.
 - Run `npm run build` before committing — it runs lint, tests, and regenerates `dist/`. The pre-commit hook does this automatically after `npm install`.
 
-Bugs and feature requests are managed in [Issues](https://github.com/mailcheck/mailcheck/issues).
+Bugs and feature requests are managed in [Issues](https://github.com/opositatest/mailcheck/issues).
 
 License
 -------

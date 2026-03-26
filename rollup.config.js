@@ -1,6 +1,6 @@
 import terser from '@rollup/plugin-terser';
 
-const banner = '/*! mailcheck v1.1.2 @licence MIT */';
+const banner = '/*! mailcheck v2.0.0 @licence MIT */';
 
 export default [
   // ESM + CJS builds (core only, no jQuery)
