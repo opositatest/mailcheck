@@ -1,16 +1,6 @@
 /*! mailcheck v1.1.2 @licence MIT */
 'use strict';
 
-/*
- * Mailcheck https://github.com/mailcheck/mailcheck
- * Author
- * Derrick Ko (@derrickko)
- *
- * Released under the MIT License.
- *
- * v 1.1.2
- */
-
 const Mailcheck = {
   domainThreshold: 2,
   secondLevelThreshold: 2,
