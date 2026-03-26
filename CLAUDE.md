@@ -5,14 +5,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm test          # lint (jshint) + run Jasmine tests
-npm run uglify    # minify src/mailcheck.js → src/mailcheck.min.js
-grunt             # lint + test + minify (also runs as pre-commit hook)
+npm run build     # lint + test + minify (also runs as pre-commit hook)
+npm test          # run Jasmine tests only
+npm run lint      # Biome check (lint + format check)
+npm run lint:fix  # Biome check --write (auto-fix)
+npm run minify    # minify src/mailcheck.js → src/mailcheck.min.js
 ```
 
-To run tests without minifying: `grunt test`
+After any change to `src/mailcheck.js`, run `npm run build` to regenerate `src/mailcheck.min.js` — both files are committed together.
 
-After any change to `src/mailcheck.js`, run `grunt` (or `npm run uglify`) to regenerate `src/mailcheck.min.js` — both files are committed together.
+## Toolchain
+
+- **Node ≥ 22** required
+- **Biome 2** (`biome.json`) replaces ESLint/Prettier — linter + formatter in one tool
+- **Jasmine 5** (config in `spec/support/jasmine.json`) replaces jasmine-node/grunt-jasmine-node
+- **Terser 5** replaces grunt-contrib-uglify
+- **Husky 9** (`.husky/pre-commit`) replaces ghooks — runs `npm run build` on commit
 
 ## Architecture
 
