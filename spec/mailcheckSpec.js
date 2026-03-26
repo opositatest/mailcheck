@@ -79,6 +79,11 @@ describe('mailcheck', function () {
         const result = Mailcheck.encodeEmail(" g1!#$%&'*+-/=?^_`{|}@gmai.com");
         expect(result).toEqual(" g1!#$%&'*+-/=?^_`{|}@gmai.com");
       });
+
+      it('allows multiple occurrences of valid special characters', function () {
+        const result = Mailcheck.encodeEmail("{a}|{b}|{c}^`^@gmai.com");
+        expect(result).toEqual("{a}|{b}|{c}^`^@gmai.com");
+      });
     });
 
     describe('return value', function () {

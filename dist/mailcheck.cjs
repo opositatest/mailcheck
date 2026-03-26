@@ -303,7 +303,14 @@ const Mailcheck = {
   // http://en.wikipedia.org/wiki/Email_address#Syntax
   encodeEmail(email) {
     let result = encodeURI(email);
-    result = result.replace("%20", " ").replace("%25", "%").replace("%5E", "^").replace("%60", "`").replace("%7B", "{").replace("%7C", "|").replace("%7D", "}");
+    result = result
+      .replaceAll("%20", " ")
+      .replaceAll("%25", "%")
+      .replaceAll("%5E", "^")
+      .replaceAll("%60", "`")
+      .replaceAll("%7B", "{")
+      .replaceAll("%7C", "|")
+      .replaceAll("%7D", "}");
     return result;
   },
 };
