@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "after:bump": "npm run build"
+  },
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": true,
+    "requireBranch": "main",
+    "requireUpstream": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "out": [
+        { "file": "mailcheck.jquery.json" },
+        { "file": "rollup.config.js", "type": "text/plain" }
+      ]
+    }
+  }
+}

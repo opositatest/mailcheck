@@ -49,9 +49,11 @@
   "sideEffects": false,
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
+    "@release-it/bumper": "^7.0.5",
     "@rollup/plugin-terser": "^1.0.0",
     "husky": "^9.0.0",
     "jasmine": "^5.0.0",
+    "release-it": "^19.2.4",
     "rollup": "^4.0.0"
   },
   "repository": {
@@ -64,6 +66,7 @@
     "test": "jasmine",
     "bundle": "rollup -c",
     "build": "npm run lint && npm run test && npm run bundle",
+    "release": "release-it",
     "prepare": "husky"
   }
 }
