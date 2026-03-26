@@ -179,6 +179,33 @@ Pull requests are welcome. To get them accepted, please:
 
 Bugs and feature requests are managed in [Issues](https://github.com/opositatest/mailcheck/issues).
 
+Releasing
+---------
+
+Releases are powered by [release-it](https://github.com/release-it/release-it) and published to npm automatically via GitHub Actions.
+
+```bash
+npm run release          # interactive — prompts for patch/minor/major
+npm run release -- patch # 2.0.0 → 2.0.1  (bug fixes)
+npm run release -- minor # 2.0.0 → 2.1.0  (new features)
+npm run release -- major # 2.0.0 → 3.0.0  (breaking changes)
+```
+
+This will:
+1. Verify you are on `main`, the working tree is clean, and in sync with origin
+2. Bump the version in all files and regenerate `dist/`
+3. Commit, tag and push to `origin/main`
+4. Create the GitHub Release automatically via API
+
+Once the GitHub Release is published, the `publish.yml` workflow triggers and publishes to npm.
+
+
+| Secret | Where to get it |
+|---|---|
+| `NPM_TOKEN` | npmjs.com → Access Tokens → Automation token |
+| `GITHUB_TOKEN` | Provided automatically by GitHub Actions |
+
+
 License
 -------
 
