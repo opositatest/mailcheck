@@ -1,24 +1,24 @@
-## ¿Qué hace este PR?
+## What does this PR do?
 
-<!-- Describe brevemente el cambio -->
+<!-- Briefly describe the change -->
 
-## Tipo de cambio
+## Type of change
 
 - [ ] Bug fix
-- [ ] Nueva funcionalidad
-- [ ] Mejora de rendimiento
+- [ ] New feature
+- [ ] Performance improvement
 - [ ] Refactor
-- [ ] Documentación
-- [ ] Seguridad
-- [ ] Actualización de dependencias
+- [ ] Documentation
+- [ ] Security
+- [ ] Dependency update
 
 ## Checklist
 
-- [ ] `npm run build` pasa sin errores (lint + tests + bundle)
-- [ ] Se han añadido o actualizado tests si el cambio afecta a la lógica
-- [ ] `dist/` está actualizado y commiteado
-- [ ] El `CHANGELOG.md` refleja el cambio si es relevante para usuarios de la librería
+- [ ] `npm run build` passes without errors (lint + tests + bundle)
+- [ ] Tests have been added or updated if the change affects logic
+- [ ] `dist/` is up to date and committed
+- [ ] `CHANGELOG.md` reflects the change if relevant to library users
 
-## Contexto adicional
+## Additional context
 
-<!-- Issues relacionados, capturas de pantalla, o cualquier información relevante -->
+<!-- Related issues, screenshots, or any relevant information -->
