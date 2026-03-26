@@ -1,3 +1,6 @@
+/*! mailcheck v1.1.2 @licence MIT */
+'use strict';
+
 /*
  * Mailcheck https://github.com/mailcheck/mailcheck
  * Author
@@ -315,4 +318,4 @@ const Mailcheck = {
   },
 };
 
-export default Mailcheck;
+module.exports = Mailcheck;
