@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mailcheck — ESM example</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; }
+    input[type="email"] { width: 100%; padding: 0.4rem; font-size: 1rem; box-sizing: border-box; }
+    .suggestion { margin-top: 0.5rem; min-height: 1.2rem; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Mailcheck — ESM</h1>
+  <p>Uses <code>import</code> with <code>dist/mailcheck.mjs</code>. Requires a bundler or a browser that supports ES modules.</p>
+  <p>Try: <code>alfonso@gml.com</code></p>
+
+  <input id="email" type="email" placeholder="alfonso@gml.com" />
+  <p class="suggestion" id="suggestion"></p>
+
+  <script type="module">
+    import Mailcheck from '../dist/mailcheck.mjs';
+
+    document.getElementById('email').addEventListener('blur', function () {
+      Mailcheck.run({
+        email: this.value,
+        suggested: function (suggestion) {
+          document.getElementById('suggestion').innerHTML =
+            'Did you mean <b>' + suggestion.full + '</b>?';
+        },
+        empty: function () {
+          document.getElementById('suggestion').textContent = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mailcheck — Browser example</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; }
+    input[type="email"] { width: 100%; padding: 0.4rem; font-size: 1rem; box-sizing: border-box; }
+    .suggestion { margin-top: 0.5rem; min-height: 1.2rem; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Mailcheck — Browser</h1>
+  <p>Uses <code>dist/mailcheck.browser.min.js</code> via a plain <code>&lt;script&gt;</code> tag. No bundler needed — exposes <code>window.Mailcheck</code> globally.</p>
+  <p>Try: <code>alfonso@gml.com</code></p>
+
+  <input id="email" type="email" placeholder="alfonso@gml.com" />
+  <p class="suggestion" id="suggestion"></p>
+
+  <script src="../dist/mailcheck.browser.min.js"></script>
+  <script>
+    document.getElementById('email').addEventListener('blur', function () {
+      Mailcheck.run({
+        email: this.value,
+        suggested: function (suggestion) {
+          document.getElementById('suggestion').innerHTML =
+            'Did you mean <b>' + suggestion.full + '</b>?';
+        },
+        empty: function () {
+          document.getElementById('suggestion').textContent = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

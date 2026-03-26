@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mailcheck — jQuery example</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; }
+    input[type="email"] { width: 100%; padding: 0.4rem; font-size: 1rem; box-sizing: border-box; }
+    .suggestion { margin-top: 0.5rem; min-height: 1.2rem; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Mailcheck — jQuery plugin</h1>
+  <p>Uses <code>dist/mailcheck.browser.min.js</code> which auto-registers <code>$.fn.mailcheck</code> when jQuery is present.</p>
+  <p>Try: <code>alfonso@gml.com</code></p>
+
+  <input id="email" type="email" placeholder="alfonso@gml.com" />
+  <p class="suggestion" id="suggestion"></p>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../dist/mailcheck.browser.min.js"></script>
+  <script>
+    $('#email').on('blur', function () {
+      $(this).mailcheck({
+        suggested: function (element, suggestion) {
+          $('#suggestion').html('Did you mean <b>' + suggestion.full + '</b>?');
+        },
+        empty: function () {
+          $('#suggestion').text('');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

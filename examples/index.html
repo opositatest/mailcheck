@@ -1,38 +1,20 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  <script src="../src/mailcheck.js"></script>
-  <title>Mailcheck</title>
+  <meta charset="UTF-8" />
+  <title>Mailcheck — Examples</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; }
+    ul { line-height: 2; }
+    code { background: #f4f4f4; padding: 0.1em 0.3em; border-radius: 3px; font-size: 0.9em; }
+  </style>
 </head>
-
 <body>
-<h1>Mailcheck</h1>
-<p>For a demo, enter a@hotmale.com or b@gmail.co in the field below:</p>
-<input id="email" name="email" type="email" />
-<input name="Submit" type="submit" />
-<p id="suggestion"></p>
-
-<script>
-var domains = ['hotmail.com', 'gmail.com', 'aol.com'];
-var topLevelDomains = ["com", "net", "org"];
-
-$('#email').on('blur', function(event) {
-  console.log("event ", event);
-  console.log("this ", $(this));
-  $(this).mailcheck({
-    domains: domains,                       // optional
-    topLevelDomains: topLevelDomains,       // optional
-    suggested: function(element, suggestion) {
-      // callback code
-      console.log("suggestion ", suggestion.full);
-      $('#suggestion').html("Did you mean <b><i>" + suggestion.full + "</b></i>?");
-    },
-    empty: function(element) {
-      // callback code
-      $('#suggestion').html('No Suggestions :(');
-    }
-  });
-});
-</script>
+  <h1>Mailcheck — Examples</h1>
+  <ul>
+    <li><a href="esm.html">ESM</a> — <code>import</code> with <code>dist/mailcheck.mjs</code></li>
+    <li><a href="browser.html">Browser</a> — plain <code>&lt;script&gt;</code>, no bundler needed</li>
+    <li><a href="jquery.html">jQuery plugin</a> — <code>$.fn.mailcheck</code></li>
+  </ul>
 </body>
-
+</html>
