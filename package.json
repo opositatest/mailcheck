@@ -28,18 +28,32 @@
   ],
   "bugs": "https://github.com/mailcheck/mailcheck/issues",
   "homepage": "https://github.com/mailcheck/mailcheck",
-  "docs": "https://github.com/mailcheck/mailcheck/blob/master/README.md",
   "engines": {
     "node": ">=22"
   },
-  "dependencies": {},
+  "type": "module",
+  "main": "./dist/mailcheck.cjs",
+  "module": "./dist/mailcheck.mjs",
+  "types": "./src/mailcheck.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/mailcheck.d.ts",
+      "import": "./dist/mailcheck.mjs",
+      "require": "./dist/mailcheck.cjs"
+    }
+  },
+  "files": [
+    "dist/",
+    "src/mailcheck.d.ts"
+  ],
+  "sideEffects": false,
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
+    "@rollup/plugin-terser": "^1.0.0",
     "husky": "^9.0.0",
     "jasmine": "^5.0.0",
-    "terser": "^5.0.0"
+    "rollup": "^4.0.0"
   },
-  "main": "src/mailcheck.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/mailcheck/mailcheck.git"
@@ -48,8 +62,8 @@
     "lint": "biome check src/",
     "lint:fix": "biome check --write src/",
     "test": "jasmine",
-    "minify": "terser src/mailcheck.js -o src/mailcheck.min.js --preamble '/*! mailcheck v1.1.2 @licence MIT */'",
-    "build": "npm run lint && npm run test && npm run minify",
+    "bundle": "rollup -c",
+    "build": "npm run lint && npm run test && npm run bundle",
     "prepare": "husky"
   }
 }
