@@ -17,7 +17,6 @@
 - [ ] `npm run build` passes without errors (lint + tests + bundle)
 - [ ] Tests have been added or updated if the change affects logic
 - [ ] `dist/` is up to date and committed
-- [ ] `CHANGELOG.md` reflects the change if relevant to library users
 
 ## Additional context
 
