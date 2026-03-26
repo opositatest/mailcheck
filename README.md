@@ -16,11 +16,11 @@ The Javascript library and jQuery plugin that suggests a right domain when your 
 What does it do?
 ----------------
 
-When your user types in "user@gmil.con", Mailcheck will suggest "user@gmail.com".
+When your user types in "alfonso@gml.com", Mailcheck will suggest "alfonso@gmail.com".
 
-Mailcheck will offer up suggestions for second and top level domains too. For example, when a user types in "user@hotmail.cmo", "hotmail.com" will be suggested. Similarly, if only the second level domain is misspelled, it will be corrected independently of the top level domain.
+Mailcheck will offer up suggestions for second and top level domains too. For example, when a user types in "alfonso@hotmail.cmo", "hotmail.com" will be suggested. Similarly, if only the second level domain is misspelled, it will be corrected independently of the top level domain.
 
-![diagram](https://raw.githubusercontent.com/mailcheck/mailcheck/master/doc/example.png)
+![example](./examples/example.png)
 
 Installation
 ------------
