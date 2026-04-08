@@ -182,7 +182,22 @@ Bugs and feature requests are managed in [Issues](https://github.com/opositatest
 Releasing
 ---------
 
-Releases are powered by [release-it](https://github.com/release-it/release-it) and published to npm automatically via GitHub Actions.
+Releases are published to npm automatically by GitHub Actions when a GitHub Release is published.
+
+#### Publish an existing version
+
+Use this flow when the version is already set in `package.json` and you want to publish that exact version for the first time:
+
+1. Make sure `main` contains the version you want to publish.
+2. Go to GitHub → `Releases` → `Draft a new release`.
+3. Create a new tag such as `v2.0.0` from `main`.
+4. Publish the release.
+
+Publishing the GitHub Release triggers `.github/workflows/publish.yml`, which installs dependencies, runs `npm run build`, and publishes the package to npm.
+
+#### Create the next release
+
+For subsequent releases, use [release-it](https://github.com/release-it/release-it):
 
 ```bash
 npm run release          # interactive — prompts for patch/minor/major
@@ -198,12 +213,6 @@ This will:
 4. Create the GitHub Release automatically via API
 
 Once the GitHub Release is published, the `publish.yml` workflow triggers and publishes to npm.
-
-
-| Secret | Where to get it |
-|---|---|
-| `NPM_TOKEN` | npmjs.com → Access Tokens → Automation token |
-| `GITHUB_TOKEN` | Provided automatically by GitHub Actions |
 
 
 License
