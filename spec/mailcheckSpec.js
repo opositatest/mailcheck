@@ -1,4 +1,5 @@
 import Mailcheck from "../src/mailcheck.js";
+import MailcheckModule, { Mailcheck as NamedMailcheck } from "../src/mailcheck.esm.js";
 
 describe("mailcheck", function () {
   const domains = ["google.com", "gmail.com", "emaildomain.com", "comcast.net", "facebook.com", "msn.com"];
@@ -66,6 +67,13 @@ describe("mailcheck", function () {
           domain: "emaildomain.com",
           full: "test@emaildomain.com",
         });
+      });
+    });
+
+    describe("module exports", function () {
+      it("exposes Mailcheck as both default and named ESM exports", function () {
+        expect(MailcheckModule).toBe(Mailcheck);
+        expect(NamedMailcheck).toBe(Mailcheck);
       });
     });
 

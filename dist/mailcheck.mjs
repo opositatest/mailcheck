@@ -362,4 +362,4 @@ const Mailcheck = {
   },
 };
 
-export { Mailcheck as default };
+export { Mailcheck, Mailcheck as default };

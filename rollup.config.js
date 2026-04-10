@@ -5,20 +5,21 @@ const banner = '/*! mailcheck v2.0.0 @licence MIT */';
 export default [
   // ESM + CJS builds (core only, no jQuery)
   {
+    input: 'src/mailcheck.esm.js',
+    output: {
+      file: 'dist/mailcheck.mjs',
+      format: 'esm',
+      banner
+    }
+  },
+  {
     input: 'src/mailcheck.js',
-    output: [
-      {
-        file: 'dist/mailcheck.mjs',
-        format: 'esm',
-        banner
-      },
-      {
-        file: 'dist/mailcheck.cjs',
-        format: 'cjs',
-        exports: 'default',
-        banner
-      }
-    ]
+    output: {
+      file: 'dist/mailcheck.cjs',
+      format: 'cjs',
+      exports: 'default',
+      banner
+    }
   },
   // Browser IIFE build (includes jQuery plugin, minified)
   {
