@@ -1,4 +1,4 @@
-/*! mailcheck v2.0.0 @licence MIT */
+/*! mailcheck v2.0.1 @licence MIT */
 const Mailcheck = {
   domainThreshold: 2,
   secondLevelThreshold: 2,

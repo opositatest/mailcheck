@@ -1,4 +1,4 @@
-/*! mailcheck v2.0.0 @licence MIT */
+/*! mailcheck v2.0.1 @licence MIT */
 'use strict';
 
 const Mailcheck = {
