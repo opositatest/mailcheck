@@ -50,4 +50,5 @@ export interface MailcheckInstance {
 }
 
 declare const Mailcheck: MailcheckInstance;
+export { Mailcheck };
 export default Mailcheck;
