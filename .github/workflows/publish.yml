@@ -24,6 +24,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate release version
+        run: |
+          node -e "const fs = require('node:fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); const tag = process.env.GITHUB_REF_NAME.replace(/^v/, ''); if (pkg.version !== tag) { console.error(`Release tag ${process.env.GITHUB_REF_NAME} does not match package.json version ${pkg.version}. Update package.json first or use npm run release to create the next version.`); process.exit(1); }"
+
       - name: Build
         run: npm run build
 

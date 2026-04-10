@@ -209,6 +209,8 @@ npm run release -- minor # 2.0.0 → 2.1.0  (new features)
 npm run release -- major # 2.0.0 → 3.0.0  (breaking changes)
 ```
 
+Do not create the next release tag manually in GitHub for this flow. `release-it` updates the version, creates the tag, pushes it, and publishes the GitHub Release.
+
 This will:
 1. Verify you are on `main`, the working tree is clean, and in sync with origin
 2. Bump the version in all files and regenerate `dist/`
