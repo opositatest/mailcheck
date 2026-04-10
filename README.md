@@ -185,7 +185,7 @@ Bugs and feature requests are managed in [Issues](https://github.com/opositatest
 Releasing
 ---------
 
-Releases are published to npm automatically by GitHub Actions when a GitHub Release is published.
+Releases are published from GitHub Actions to both npm and GitHub Packages.
 
 #### Publish an existing version
 
@@ -196,9 +196,11 @@ Use this flow when the version is already set in `package.json` and you want to 
 3. Create a new tag such as `v2.0.0` from `main`.
 4. Publish the release.
 
-Publishing the GitHub Release triggers `.github/workflows/publish.yml`, which installs dependencies, runs `npm run build`, and publishes the package to npm.
+Publishing the GitHub Release triggers `.github/workflows/publish.yml` for npm and `.github/workflows/publish-github-packages.yml` for GitHub Packages. Both install dependencies, run `npm run build`, and publish the package.
 
 If you already have the right version committed on `main` and need to publish it manually from GitHub, you can also run the `Publish to npm` workflow from `Actions`.
+
+If you need the same manual fallback for GitHub Packages, run `Publish to GitHub Packages` from `Actions`.
 
 #### Create the next release
 
@@ -209,7 +211,7 @@ For subsequent releases, use the `Create Release` GitHub Actions workflow:
 3. Choose `patch`, `minor`, or `major`.
 4. Run the workflow.
 
-Do not create the next release tag manually in GitHub for this flow. The workflow runs `release-it`, updates the version, creates the tag, pushes it, publishes the GitHub Release, and then publishes the package to npm.
+Do not create the next release tag manually in GitHub for this flow. The workflow runs `release-it`, updates the version, creates the tag, pushes it, publishes the GitHub Release, and then publishes the package to both npm and GitHub Packages.
 
 This will:
 1. Verify you are on `main`, the working tree is clean, and in sync with origin
@@ -217,8 +219,9 @@ This will:
 3. Commit, tag and push to `origin/main`
 4. Create the GitHub Release automatically via API
 5. Publish the new version to npm
+6. Publish the new version to GitHub Packages
 
-This workflow publishes to npm directly because a GitHub Release created with `GITHUB_TOKEN` does not trigger the separate `publish.yml` workflow.
+This workflow publishes directly to both registries because a GitHub Release created with `GITHUB_TOKEN` does not trigger the separate publish workflows.
 
 #### Local fallback
 
