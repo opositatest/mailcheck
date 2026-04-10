@@ -35,7 +35,10 @@ Usage
 #### ESM (recommended)
 
 ```js
-import Mailcheck from '@opositatest/mailcheck';
+import { Mailcheck } from '@opositatest/mailcheck';
+
+// Compatible alternative:
+// import Mailcheck from '@opositatest/mailcheck';
 
 Mailcheck.run({
   email: yourTextInput.value,
@@ -148,7 +151,7 @@ TypeScript
 Types are included:
 
 ```ts
-import Mailcheck, { MailcheckOptions, MailcheckSuggestion } from '@opositatest/mailcheck';
+import { Mailcheck, MailcheckOptions, MailcheckSuggestion } from '@opositatest/mailcheck';
 
 const opts: MailcheckOptions = {
   email: 'test@gmailc.om',
