@@ -156,6 +156,7 @@ const Mailcheck = {
     threshold = threshold || this.topLevelThreshold;
     let dist;
     let minDist = Infinity;
+    let minLegacyDist = Infinity;
     let closestDomain = null;
 
     if (!domain || !domains) {
@@ -165,6 +166,8 @@ const Mailcheck = {
       distanceFunction = this.sift4Distance;
     }
 
+    const useLegacyTieBreak = distanceFunction === this.sift4Distance && domains === this.defaultDomains;
+
     for (let i = 0; i < domains.length; i++) {
       if (domain === domains[i]) {
         return domain;
@@ -173,6 +176,15 @@ const Mailcheck = {
       if (dist < minDist) {
         minDist = dist;
         closestDomain = domains[i];
+        if (useLegacyTieBreak) {
+          minLegacyDist = this.sift3Distance(domain, domains[i]);
+        }
+      } else if (useLegacyTieBreak && dist === minDist) {
+        const legacyDist = this.sift3Distance(domain, domains[i]);
+        if (legacyDist < minLegacyDist) {
+          minLegacyDist = legacyDist;
+          closestDomain = domains[i];
+        }
       }
     }
 
@@ -180,6 +192,43 @@ const Mailcheck = {
       return closestDomain;
     }
     return false;
+  },
+
+  sift3Distance(s1, s2, maxOffset = 5) {
+    // Keep sift3 as a tie-breaker to preserve historical suggestions.
+    if (!s1?.length) {
+      return s2 ? s2.length : 0;
+    }
+    if (!s2?.length) {
+      return s1.length;
+    }
+
+    let c = 0;
+    let offset1 = 0;
+    let offset2 = 0;
+    let lcs = 0;
+
+    while (c + offset1 < s1.length && c + offset2 < s2.length) {
+      if (s1.charAt(c + offset1) === s2.charAt(c + offset2)) {
+        lcs++;
+      } else {
+        offset1 = 0;
+        offset2 = 0;
+        for (let i = 0; i < maxOffset; i++) {
+          if (c + i < s1.length && s1.charAt(c + i) === s2.charAt(c)) {
+            offset1 = i;
+            break;
+          }
+          if (c + i < s2.length && s1.charAt(c) === s2.charAt(c + i)) {
+            offset2 = i;
+            break;
+          }
+        }
+      }
+      c++;
+    }
+
+    return (s1.length + s2.length) / 2 - lcs;
   },
 
   sift4Distance(s1, s2, maxOffset = 5) {
