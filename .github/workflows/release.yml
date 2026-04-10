@@ -1,0 +1,56 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Release type
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Bump Version, Tag & Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "Run this workflow from main only. Current ref: $GITHUB_REF_NAME"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create release commit, tag and GitHub Release
+        run: npm run release -- ${{ inputs.release_type }} --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ github.actor }}
+          GIT_AUTHOR_EMAIL: ${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com
+          GIT_COMMITTER_NAME: ${{ github.actor }}
+          GIT_COMMITTER_EMAIL: ${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com

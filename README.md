@@ -200,16 +200,14 @@ Publishing the GitHub Release triggers `.github/workflows/publish.yml`, which in
 
 #### Create the next release
 
-For subsequent releases, use [release-it](https://github.com/release-it/release-it):
+For subsequent releases, use the `Create Release` GitHub Actions workflow:
 
-```bash
-npm run release          # interactive — prompts for patch/minor/major
-npm run release -- patch # 2.0.0 → 2.0.1  (bug fixes)
-npm run release -- minor # 2.0.0 → 2.1.0  (new features)
-npm run release -- major # 2.0.0 → 3.0.0  (breaking changes)
-```
+1. Go to GitHub → `Actions` → `Create Release`.
+2. Click `Run workflow` on `main`.
+3. Choose `patch`, `minor`, or `major`.
+4. Run the workflow.
 
-Do not create the next release tag manually in GitHub for this flow. `release-it` updates the version, creates the tag, pushes it, and publishes the GitHub Release.
+Do not create the next release tag manually in GitHub for this flow. The workflow runs `release-it`, updates the version, creates the tag, pushes it, and publishes the GitHub Release.
 
 This will:
 1. Verify you are on `main`, the working tree is clean, and in sync with origin
@@ -218,6 +216,17 @@ This will:
 4. Create the GitHub Release automatically via API
 
 Once the GitHub Release is published, the `publish.yml` workflow triggers and publishes to npm.
+
+#### Local fallback
+
+If you need to run the same flow locally, these commands still work:
+
+```bash
+npm run release          # interactive — prompts for patch/minor/major
+npm run release -- patch # 2.0.0 → 2.0.1  (bug fixes)
+npm run release -- minor # 2.0.0 → 2.1.0  (new features)
+npm run release -- major # 2.0.0 → 3.0.0  (breaking changes)
+```
 
 
 License
