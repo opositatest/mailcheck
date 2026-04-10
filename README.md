@@ -198,6 +198,8 @@ Use this flow when the version is already set in `package.json` and you want to 
 
 Publishing the GitHub Release triggers `.github/workflows/publish.yml`, which installs dependencies, runs `npm run build`, and publishes the package to npm.
 
+If you already have the right version committed on `main` and need to publish it manually from GitHub, you can also run the `Publish to npm` workflow from `Actions`.
+
 #### Create the next release
 
 For subsequent releases, use the `Create Release` GitHub Actions workflow:
@@ -207,15 +209,16 @@ For subsequent releases, use the `Create Release` GitHub Actions workflow:
 3. Choose `patch`, `minor`, or `major`.
 4. Run the workflow.
 
-Do not create the next release tag manually in GitHub for this flow. The workflow runs `release-it`, updates the version, creates the tag, pushes it, and publishes the GitHub Release.
+Do not create the next release tag manually in GitHub for this flow. The workflow runs `release-it`, updates the version, creates the tag, pushes it, publishes the GitHub Release, and then publishes the package to npm.
 
 This will:
 1. Verify you are on `main`, the working tree is clean, and in sync with origin
 2. Bump the version in all files and regenerate `dist/`
 3. Commit, tag and push to `origin/main`
 4. Create the GitHub Release automatically via API
+5. Publish the new version to npm
 
-Once the GitHub Release is published, the `publish.yml` workflow triggers and publishes to npm.
+This workflow publishes to npm directly because a GitHub Release created with `GITHUB_TOKEN` does not trigger the separate `publish.yml` workflow.
 
 #### Local fallback
 

@@ -1,6 +1,7 @@
 name: Publish to npm
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -25,6 +26,7 @@ jobs:
         run: npm ci
 
       - name: Validate release version
+        if: github.event_name == 'release'
         run: |
           node -e "const fs = require('node:fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); const tag = process.env.GITHUB_REF_NAME.replace(/^v/, ''); if (pkg.version !== tag) { console.error(`Release tag ${process.env.GITHUB_REF_NAME} does not match package.json version ${pkg.version}. Update package.json first or use the Create Release workflow to create the next version.`); process.exit(1); }"
 
