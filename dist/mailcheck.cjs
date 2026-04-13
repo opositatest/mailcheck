@@ -365,3 +365,8 @@ const Mailcheck = {
 };
 
 module.exports = Mailcheck;
+Object.defineProperties(module.exports, {
+  Mailcheck: { value: module.exports },
+  default: { value: module.exports },
+  __esModule: { value: true }
+});

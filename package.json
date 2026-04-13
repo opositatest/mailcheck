@@ -65,7 +65,7 @@
     "lint:fix": "biome check --write src/",
     "test": "jasmine",
     "bundle": "rollup -c",
-    "build": "npm run lint && npm run test && npm run bundle",
+    "build": "npm run lint && npm run bundle && npm run test",
     "release": "release-it",
     "prepare": "husky"
   }
