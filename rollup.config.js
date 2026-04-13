@@ -18,7 +18,13 @@ export default [
       file: 'dist/mailcheck.cjs',
       format: 'cjs',
       exports: 'default',
-      banner
+      banner,
+      // Preserve `require()` while exposing interop properties for Metro/Babel.
+      footer: `Object.defineProperties(module.exports, {
+        Mailcheck: { value: module.exports },
+        default: { value: module.exports },
+        __esModule: { value: true }
+      });`
     }
   },
   // Browser IIFE build (includes jQuery plugin, minified)

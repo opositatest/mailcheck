@@ -1,5 +1,10 @@
+import { createRequire } from "node:module";
 import Mailcheck from "../src/mailcheck.js";
 import MailcheckModule, { Mailcheck as NamedMailcheck } from "../src/mailcheck.esm.js";
+import DistMailcheckModule, { Mailcheck as DistNamedMailcheck } from "../dist/mailcheck.mjs";
+
+const require = createRequire(import.meta.url);
+const CjsMailcheckModule = require("../dist/mailcheck.cjs");
 
 describe("mailcheck", function () {
   const domains = ["google.com", "gmail.com", "emaildomain.com", "comcast.net", "facebook.com", "msn.com"];
@@ -74,6 +79,30 @@ describe("mailcheck", function () {
       it("exposes Mailcheck as both default and named ESM exports", function () {
         expect(MailcheckModule).toBe(Mailcheck);
         expect(NamedMailcheck).toBe(Mailcheck);
+      });
+
+      it("keeps the built ESM bundle aligned with default and named exports", function () {
+        expect(DistMailcheckModule).toBe(DistNamedMailcheck);
+        expect(DistMailcheckModule.run).toEqual(jasmine.any(Function));
+      });
+
+      it("keeps the built CommonJS bundle compatible with require consumers", function () {
+        expect(CjsMailcheckModule.run).toEqual(jasmine.any(Function));
+        expect(CjsMailcheckModule.run({ email: "test@gmail.co" })).toEqual({
+          address: "test",
+          domain: "gmail.com",
+          full: "test@gmail.com",
+        });
+      });
+
+      it("exposes CommonJS interop properties for Metro and Babel named/default imports", function () {
+        expect(CjsMailcheckModule.Mailcheck).toBe(CjsMailcheckModule);
+        expect(CjsMailcheckModule.default).toBe(CjsMailcheckModule);
+        expect(CjsMailcheckModule.Mailcheck.run({ email: "test@gmail.co" })).toEqual({
+          address: "test",
+          domain: "gmail.com",
+          full: "test@gmail.com",
+        });
       });
     });
 
