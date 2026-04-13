@@ -1,4 +1,4 @@
-/*! mailcheck v2.0.1 @licence MIT */
+/*! mailcheck v2.0.2 @licence MIT */
 'use strict';
 
 const Mailcheck = {
@@ -366,7 +366,7 @@ const Mailcheck = {
 
 module.exports = Mailcheck;
 Object.defineProperties(module.exports, {
-  Mailcheck: { value: module.exports },
-  default: { value: module.exports },
-  __esModule: { value: true }
-});
+        Mailcheck: { value: module.exports },
+        default: { value: module.exports },
+        __esModule: { value: true }
+      });
